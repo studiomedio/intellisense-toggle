@@ -2,7 +2,7 @@
   "name": "intellisense-toggle",
   "displayName": "IntelliSense Toggle",
   "description": "Quickly toggle VS Code IntelliSense (quick suggestions) on and off",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "studiomedio",
   "engines": {
     "vscode": "^1.100.0"
@@ -41,7 +41,15 @@
         "mac": "cmd+alt+i",
         "when": "editorTextFocus"
       }
+    ],
+    "menus": {
+    "statusBar/title": [
+      {
+        "command": "toggleIntelliSense",
+        "when": "false"
+      }
     ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

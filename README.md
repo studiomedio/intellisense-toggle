@@ -1,6 +1,6 @@
 # IntelliSense Toggle  
 
-A simple VS Code extension to toggle IntelliSense (quick suggestions) on/off.  
+A simple VS Code extension to toggle IntelliSense (quick suggestions) on/off. This functionality is useful when you use GitHub Copilot and you don't want IntelliSense prompts to appear before its suggestions.
 
 ## Features  
 - Toggle `editor.quickSuggestions` with a single command (`Ctrl+Alt+I` by default).  
@@ -11,3 +11,6 @@ A simple VS Code extension to toggle IntelliSense (quick suggestions) on/off.
 
 ## License  
 MIT
+
+## Author
+Sławomir Sobczak (@studiomedio)
