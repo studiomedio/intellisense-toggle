@@ -1,0 +1,63 @@
+{
+  "name": "intellisense-toggle",
+  "displayName": "IntelliSense Toggle",
+  "description": "Quickly toggle VS Code IntelliSense (quick suggestions) on and off",
+  "version": "1.0.0",
+  "publisher": "studiomedio",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "intellisense",
+    "autocomplete",
+    "suggestions",
+    "toggle",
+    "productivity"
+  ],
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/studiomedio/intellisense-toggle.git"
+  },
+  "license": "MIT",
+  "activationEvents": [
+    "onCommand:toggleIntelliSense"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "toggleIntelliSense",
+        "title": "Toggle IntelliSense"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "toggleIntelliSense",
+        "key": "ctrl+alt+i",
+        "mac": "cmd+alt+i",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
