@@ -1,6 +1,6 @@
 # Publishes to the VS Code Marketplace with Trusted Publishing (OIDC): no PAT or repository secret.
-# Must match the publisher's Trusted Publishing policy: owner studiomedio, repository
-# intellisense-toggle, workflow publish.yml, no environment.
+# Must match the publisher's Trusted Publishing policy for this repository: owner studiomedio,
+# workflow publish.yml, no environment. See PUBLISHING.md.
 #
 # Runs when a vX.Y.Z tag is pushed, or by hand (Actions → Publish → Run workflow) from master.
 name: Publish
@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 24 # esbuild.mts runs on Node's type stripping (22.18+); vsce 4 needs 22+
+          node-version: 24 # vsce 4 needs Node 22+; .mts build scripts need 22.18+
           cache: npm
 
       - name: Check version
@@ -53,7 +53,7 @@ jobs:
       - name: Package
         id: package
         run: |
-          vsix="intellisense-toggle-$(node -p "require('./package.json').version").vsix"
+          vsix="$(node -p "const p = require('./package.json'); p.name + '-' + p.version").vsix"
           npx vsce package --out "$vsix"
           echo "vsix=$vsix" >> "$GITHUB_OUTPUT"
 

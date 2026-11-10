@@ -41,8 +41,9 @@ If you add an environment to the policy, add the same `environment:` to the `pub
 4. (Optional) Draft a GitHub Release for the tag and attach the `.vsix` from the workflow run's
    artifacts.
 
-The listing goes live at `https://marketplace.visualstudio.com/items?itemName=studiomedio.intellisense-toggle`.
-Publishing a version that already exists on the Marketplace fails; bump the version.
+The listing goes live at `https://marketplace.visualstudio.com/items?itemName=studiomedio.intellisense-toggle`
+after the Marketplace's review (a few minutes). Publishing a version that already exists on the
+Marketplace fails; bump the version.
 
 ## Pre-flight checklist
 
@@ -52,8 +53,8 @@ Publishing a version that already exists on the Marketplace fails; bump the vers
 
 ## Manual fallback
 
-`npm run package` builds `intellisense-toggle-<version>.vsix`, which can be uploaded on the publisher
-page (open the extension → **…** → **Update**).
+`npm run package` builds `intellisense-toggle-<version>.vsix`, which can be uploaded on the publisher page:
+open the extension → **…** → **Update** (or **New extension → Visual Studio Code** for a new one).
 
 ## Testing the package locally
 
