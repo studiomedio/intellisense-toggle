@@ -13,8 +13,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "erasableSyntaxOnly": true
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "esbuild.mts"],
   "exclude": ["node_modules", "dist", "out-test"]
 }

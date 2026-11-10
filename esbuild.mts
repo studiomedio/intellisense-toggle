@@ -1,6 +1,7 @@
-const esbuild = require('esbuild')
-const fs = require('fs')
-const path = require('path')
+import { readdirSync, rmSync } from 'node:fs'
+import { join } from 'node:path'
+import * as esbuild from 'esbuild'
+import type { BuildOptions, Plugin } from 'esbuild'
 
 const production = process.argv.includes('--production')
 const watch = process.argv.includes('--watch')
@@ -9,7 +10,7 @@ const integration = process.argv.includes('--integration')
 
 // Prints the lines the `npm: watch` task's problem matcher (.vscode/tasks.json) waits for, so F5
 // knows when the build is ready and errors land in the Problems panel.
-const watchReporter = {
+const watchReporter: Plugin = {
   name: 'watch-reporter',
   setup(build) {
     build.onStart(() => console.log('[watch] build started'))
@@ -23,13 +24,17 @@ const watchReporter = {
   },
 }
 
-// Desktop and remote; the extension only reads and writes settings.
-const extension = {
-  entryPoints: ['src/extension.ts'],
+const node: BuildOptions = {
   bundle: true,
   format: 'cjs',
   platform: 'node',
   target: 'node18',
+}
+
+// Desktop and remote; the extension only reads and writes settings.
+const extension: BuildOptions = {
+  ...node,
+  entryPoints: ['src/extension.ts'],
   external: ['vscode'],
   outfile: 'dist/extension.js',
   sourcemap: !production,
@@ -39,40 +44,32 @@ const extension = {
 }
 
 // Unit tests cover the modules without a `vscode` dependency and run on `node --test`.
-function testTarget() {
-  const entryPoints = fs
-    .readdirSync('test')
+const unitTests = (): BuildOptions => ({
+  ...node,
+  entryPoints: readdirSync('test')
     .filter((f) => f.endsWith('.test.ts'))
-    .map((f) => path.join('test', f))
-  return {
-    entryPoints,
-    bundle: true,
-    format: 'cjs',
-    platform: 'node',
-    target: 'node18',
-    outdir: 'out-test',
-    sourcemap: true,
-    logLevel: 'warning',
-  }
+    .map((f) => join('test', f)),
+  outdir: 'out-test',
+  sourcemap: true,
+  logLevel: 'warning',
+})
+
+const integrationSuite: BuildOptions = {
+  ...node,
+  entryPoints: ['test/integration/suite.ts'],
+  external: ['vscode'],
+  outfile: 'out-test/integration/suite.js',
+  logLevel: 'warning',
 }
 
-async function main() {
+async function main(): Promise<void> {
   if (test) {
-    fs.rmSync('out-test', { recursive: true, force: true })
-    await esbuild.build(testTarget())
+    rmSync('out-test', { recursive: true, force: true })
+    await esbuild.build(unitTests())
     return
   }
   if (integration) {
-    await esbuild.build({
-      entryPoints: ['test/integration/suite.ts'],
-      bundle: true,
-      format: 'cjs',
-      platform: 'node',
-      target: 'node18',
-      external: ['vscode'],
-      outfile: 'out-test/integration/suite.js',
-      logLevel: 'warning',
-    })
+    await esbuild.build(integrationSuite)
     return
   }
 
@@ -85,7 +82,7 @@ async function main() {
   }
 }
 
-main().catch((e) => {
+main().catch((e: unknown) => {
   console.error(e)
   process.exit(1)
 })

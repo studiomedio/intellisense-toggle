@@ -7,7 +7,7 @@
       "isBackground": true,
       "presentation": { "reveal": "never" },
       "group": { "kind": "build", "isDefault": true },
-      // Inline matcher (no "esbuild Problem Matchers" extension needed); pairs with watchReporter in esbuild.js.
+      // Inline matcher (no "esbuild Problem Matchers" extension needed); pairs with watchReporter in esbuild.mts.
       "problemMatcher": {
         "owner": "esbuild",
         "source": "esbuild",

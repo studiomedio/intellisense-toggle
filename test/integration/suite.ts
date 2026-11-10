@@ -1,7 +1,7 @@
 import { strict as assert } from 'node:assert'
 import * as vscode from 'vscode'
 
-// Runs inside a real VS Code instance (see run.js). Minimal runner — no mocha needed.
+// Runs inside a real VS Code instance (see run.mts). Minimal runner — no mocha needed.
 const cases: [string, () => Promise<void>][] = []
 const test = (name: string, fn: () => Promise<void>) => cases.push([name, fn])
 

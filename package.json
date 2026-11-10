@@ -56,12 +56,12 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "build": "node esbuild.js --production",
-    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.mts --production",
+    "watch": "node esbuild.mts --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node esbuild.js --test && node --test \"out-test/*.test.js\"",
+    "test": "node esbuild.mts --test && node --test \"out-test/*.test.js\"",
     "package": "vsce package",
-    "test:integration": "node esbuild.js && node esbuild.js --integration && node test/integration/run.js"
+    "test:integration": "node esbuild.mts && node esbuild.mts --integration && node test/integration/run.mts"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

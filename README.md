@@ -39,7 +39,9 @@ npm run test:integration   # end-to-end in a downloaded VS Code (cached in .vsco
 npm run package            # -> intellisense-toggle-<version>.vsix
 ```
 
-See [PUBLISHING.md](PUBLISHING.md) for releases.
+The build script (`esbuild.mts`) and the integration runner are TypeScript too. Node runs them directly
+(type stripping), so development needs Node 22.18 or newer. See [PUBLISHING.md](PUBLISHING.md) for
+releases.
 
 ## License
 
