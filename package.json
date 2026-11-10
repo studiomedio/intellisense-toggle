@@ -1,9 +1,18 @@
 {
   "name": "intellisense-toggle",
   "displayName": "IntelliSense Toggle",
-  "description": "Quickly toggle VS Code IntelliSense (quick suggestions) on and off",
-  "version": "1.2.1",
+  "description": "Quickly toggle VS Code IntelliSense (quick suggestions) on and off — handy when you want Copilot's suggestions without IntelliSense popping up first.",
+  "version": "1.3.0",
   "publisher": "studiomedio",
+  "license": "MIT",
+  "pricing": "Free",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/studiomedio/intellisense-toggle"
+  },
+  "bugs": {
+    "url": "https://github.com/studiomedio/intellisense-toggle/issues"
+  },
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -15,23 +24,25 @@
     "autocomplete",
     "suggestions",
     "toggle",
-    "productivity"
+    "productivity",
+    "quick suggestions",
+    "copilot"
   ],
   "icon": "images/icon.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/studiomedio/intellisense-toggle.git"
+  "galleryBanner": {
+    "color": "#D9D9DD",
+    "theme": "light"
   },
-  "license": "MIT",
+  "main": "./dist/extension.js",
   "activationEvents": [
-    "onCommand:toggleIntelliSense"
+    "onStartupFinished"
   ],
-  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "toggleIntelliSense",
-        "title": "Toggle IntelliSense"
+        "title": "Toggle IntelliSense",
+        "category": "IntelliSense Toggle"
       }
     ],
     "keybindings": [
@@ -41,31 +52,23 @@
         "mac": "cmd+alt+i",
         "when": "editorTextFocus"
       }
-    ],
-    "menus": {
-      "statusBar/title": [
-        {
-          "command": "toggleIntelliSense",
-          "when": "false"
-        }
-      ]
-    }
+    ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "package": "vsce package"
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node esbuild.js --test && node --test \"out-test/*.test.js\"",
+    "package": "vsce package",
+    "test:integration": "node esbuild.js && node esbuild.js --integration && node test/integration/run.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.100.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "@typescript-eslint/eslint-plugin": "^8.31.1",
-    "@typescript-eslint/parser": "^8.31.1",
-    "eslint": "^9.25.1",
-    "typescript": "^5.8.3",
-    "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.5.2"
+    "@types/node": "^22.20.5",
+    "@types/vscode": "~1.100.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^3.9.2",
+    "esbuild": "^0.25.12",
+    "typescript": "^5.9.3"
   }
 }
